@@ -777,6 +777,24 @@ _ssl_configure_hostname(PySSLSocket *self, const char* server_hostname)
     return retval;
 }
 
+
+// -1 is means sslExDataIndex has not yet created by SSL_get_ex_new_index.
+// Reference SSL_set_ex_new_index is mapped to crypto_get_ex_new_index inside openssl.
+// https://github.com/openssl/openssl/blob/b8be229dab036b26de8830444bf2beb82e71f50e/crypto/ex_data.c#L141
+int getSSLExDataIndex1() {
+  static auto index1 =
+      SSL_get_ex_new_index(0, NULL, NULL, NULL, NULL);
+  assert(index1 > -1);
+  return index1;
+}
+
+int getSSLExDataIndex2() {
+  static auto index2 =
+      SSL_get_ex_new_index(0, NULL, NULL, NULL, NULL);
+  assert(index2 > -1);
+  return index2;
+}
+
 static PySSLSocket *
 newPySSLSocket(PySSLContext *sslctx, PySocketSockObject *sock,
                enum py_ssl_server_or_client socket_type,
