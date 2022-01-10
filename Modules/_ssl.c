@@ -752,6 +752,7 @@ _ssl_configure_hostname(PySSLSocket *self, const char* server_hostname)
             goto error;
         }
     }
+    // TlsHostnameValidation
     if (self->ctx->check_hostname) {
         X509_VERIFY_PARAM *param = SSL_get0_param(self->ssl);
         if (ip == NULL) {
@@ -784,6 +785,7 @@ newPySSLSocket(PySSLContext *sslctx, PySocketSockObject *sock,
                PySSLMemoryBIO *inbio, PySSLMemoryBIO *outbio)
 {
     PySSLSocket *self;
+    // ????
     SSL_CTX *ctx = sslctx->ctx;
     _PySSLError err = { 0 };
 
