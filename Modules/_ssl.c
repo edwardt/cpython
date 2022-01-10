@@ -274,6 +274,13 @@ enum py_proto_version {
  * older SSL, but let's be safe */
 #define PySSL_CB_MAXLEN 128
 
+/*
+    End user controlled SSL cert validation setting as bitflag.
+*/
+enum py_cert_validation_setting {
+    PY_TLS_HOSTNAME_VALIDATION_DISABLED=1,
+    PY_TLS_HOSTNAME_VALIDATION_ENABLED,
+};
 
 typedef struct {
     PyObject_HEAD
@@ -295,6 +302,8 @@ typedef struct {
     BIO *keylog_bio;
     /* Cached module state, also used in SSLSocket and SSLSession code. */
     _sslmodulestate *state;
+    /* End user can turn on/off validation setting as bitflag. */
+    unsigned int validation_setting;
 } PySSLContext;
 
 typedef struct {
