@@ -27,6 +27,7 @@ typedef struct {
     PyObject *err_codes_to_names;
     PyObject *err_names_to_codes;
     PyObject *lib_codes_to_names;
+    PyObject *log_error_only; /* log but not fail ssl because error */
     /* socket type from module CAPI */
     PyTypeObject *Sock_Type;
 } _sslmodulestate;
